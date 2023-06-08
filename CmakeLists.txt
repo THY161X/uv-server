@@ -1,0 +1,26 @@
+cmake_minimum_required(VERSION 3.10)
+project(uv-server)
+
+# 添加libuv库路径
+set(LIBUV_INCLUDE_DIRS "/usr/local/include")
+set(LIBUV_LIBRARIES "/usr/local/lib/libuv.a")
+
+# 设置CPP版本
+set(CMAKE_CXX_STANDARD 11)
+
+# 设置项目中的头文件目录
+include_directories(${PROJECT_SOURCE_DIR}/src/include
+	            ${PROJECT_SOURCE_DIR}/resources)
+
+# 设置源文件目录
+set(SRC_DIR ${CMAKE_CURRENT_SOURCE_DIR}/src)
+
+# 添加源文件和头文件路径
+file(GLOB_RECURSE SRC_FILES "${SRC_DIR}/**/*.cpp")
+include_directories(${LIBUV_INCLUDE_DIRS})
+
+# 生成可执行文件
+add_executable(${PROJECT_NAME} ${SRC_FILES})
+
+# 链接libuv库
+target_link_libraries(${PROJECT_NAME} ${LIBUV_LIBRARIES})
